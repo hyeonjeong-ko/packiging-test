@@ -12,15 +12,3 @@ runs:
     - name: Echo
       run: |
         echo Heyyyyy
-
-jobs:
-  hello_job:
-    runs-on: ubuntu-latest
-    name: A job to say hello
-    steps:
-      - name: Checkout code
-        uses: actions/checkout@v2
-      
-      - name: Run Python script
-        run: |
-          python test.py
