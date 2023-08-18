@@ -1,12 +1,5 @@
 name: hjk-test-v1
 description: 현정이의 테스트
-
-on: [push]
-
-
-# action.yml
-name: 'test-pack-hjk'
-description: 'Greet someone and record the time'
 runs:
   using: 'docker'
   image: 'Dockerfile'
