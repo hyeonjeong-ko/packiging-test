@@ -7,6 +7,9 @@ chmod +x *
 
 ls
 
-cd ./app
+cd /app
+
+ls
+
 
 python test.py
