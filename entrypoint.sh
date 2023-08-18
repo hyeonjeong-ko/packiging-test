@@ -7,6 +7,6 @@ chmod +x *
 
 ls
 
-cd workdir
+cd ./app
 
 python test.py
