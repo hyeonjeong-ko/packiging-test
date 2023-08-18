@@ -1,5 +1,11 @@
 name: hjk-test-v1
 description: 현정이의 테스트
+
+inputs:
+  test-variable:
+    description: "The KakaoTalk API access token"
+    required: true
+    
 runs:
   using: 'docker'
   image: 'Dockerfile'
