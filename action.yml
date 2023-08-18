@@ -3,7 +3,7 @@ description: 현정이의 테스트
 
 inputs:
   test-variable:
-    description: "The KakaoTalk API access token"
+    description: "카카오 사용자 입력 변수 테스트"
     required: true
     
 runs:
