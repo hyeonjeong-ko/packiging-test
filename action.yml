@@ -1,3 +1,7 @@
+
+name: hjk-test-v1
+description: 현정이의 테스트
+
 on: [push]
 
 jobs:
