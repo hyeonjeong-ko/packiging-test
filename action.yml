@@ -5,7 +5,7 @@ on: [push]
 
 
 # action.yml
-name: 'Hello World'
+name: 'test-pack'
 description: 'Greet someone and record the time'
 runs:
   using: 'docker'
