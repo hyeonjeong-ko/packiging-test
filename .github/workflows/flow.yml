@@ -12,11 +12,3 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v2
-      
-    - name: Run hjk-test-v1 action
-      uses: hyeonjeong-ko/packiging-test@1
-      with:
-        input-param: "Hello, GitHub Action!"
-    
-    - name: Run Python script
-      run: python my_script.py
