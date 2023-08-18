@@ -5,9 +5,29 @@ inputs:
   test-variable:
     description: "카카오 사용자 입력 변수 테스트"
     required: true
+  send-to-function:
+    description: "The function to execute (send_to_friends or send_to_me)"
+    required: true
+  rest-api-key:
+    description: "your kakaotalk rest api key"
+    required: true
+  redirect-uri:
+    description: "your redirect-uri"
+    required: true
+  code-key:
+    description: "your kakaotalk oauth code key"
+    required: true
+  msg-template:
+    description: "message template option (feed or text)"
+    required: false
     
 runs:
   using: 'docker'
   image: 'Dockerfile'
-  env:
+  env: # 깃허브 액션에서의 환경변수 설정
     MY_INPUT_VAR: ${{ inputs.test-variable }}
+    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+    REST_API_KEY: ${{ inputs.rest-api-key }}
+    REDIRECT_URI: ${{ inputs.redirect-uri }}
+    CODE_KEY: ${{ inputs.code-key }}
+    MSG_TEMPLATE: ${{ inputs.msg-template }}
