@@ -1,7 +1,17 @@
 name: hjk-test-v1
 description: 현정이의 테스트
 
-on: [push]
+on:
+  push:
+    branches:
+      - main
+
+runs:
+  using: "composite"
+  steps: 
+    - name: Echo
+      run: |
+        echo Heyyyyy
 
 jobs:
   hello_job:
