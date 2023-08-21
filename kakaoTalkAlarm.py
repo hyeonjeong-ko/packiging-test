@@ -109,15 +109,15 @@ if send_to_function == 'send_to_me':
             "template_object" : json.dumps({ "object_type" : "text",
                                              "text" : f"{user_name}님이 {event_name}을 했어요!\n{description}",
                                              "link" : {
-                                                         "web_url" : redirect_url,
-                                                         "mobile_web_url" : redirect_url
+                                                         "web_url" : redirect_uri,
+                                                         "mobile_web_url" : redirect_uri
                                                       },
                                             "buttons": [
                                                 {
                                                     "title": "깃헙으로 이동하기",
                                                     "link": {
-                                                    "web_url": redirect_url,
-                                                      "mobile_web_url": redirect_url
+                                                    "web_url": redirect_uri,
+                                                      "mobile_web_url": redirect_uri
                                                     }
                                                 }
                                               ]
