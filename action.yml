@@ -100,6 +100,7 @@ runs:
 
     - name: Run Python Script
       run: python kakaoTalkAlarm.py
+      shell: bash
     # - id: random-number-generator
     #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
     #   shell: bash
