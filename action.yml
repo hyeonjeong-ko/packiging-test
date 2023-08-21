@@ -90,6 +90,7 @@ runs:
 
     - name: Build Docker image
       run: docker build -t my-docker-image .
+      working-directory: packiging-test
       shell: bash
     
     - name: Run Docker container
@@ -109,6 +110,7 @@ runs:
           -e FROM_BRANCH="${{ env.FROM_BRANCH }}" \
           -e TO_BRANCH="${{ env.TO_BRANCH }}" \
           my-docker-image
+      working-directory: packiging-test
       shell: bash
 
 
