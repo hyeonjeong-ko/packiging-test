@@ -14,6 +14,11 @@ ls
 python -m pip install --upgrade pip
 pip install requests
 
+
+python test.py
+python kakaoTalkAlarm.py
+
+
 echo "===============================================세부 명령 진입==============================================="
 
 
@@ -89,6 +94,6 @@ if [ "$EVENT_NAME" = "push" ]; then
   git push origin main
 fi  
 
-python test.py
-python kakaoTalkAlarm.py
+# python test.py
+# python kakaoTalkAlarm.py
 
