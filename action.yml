@@ -22,35 +22,14 @@ inputs:
     required: false
 
 
-jobs:
-  my-job:
-    runs-on: ubuntu-latest
     
-    steps:
-      - name: Checkout Repository # 리포지토리 체크아웃
-        uses: actions/checkout@v2  # actions/checkout 액션 사용
-
-      - name: Set up Docker # Docker 설정
-        run: |
-          docker build -t my-docker-image -f Dockerfile .
-      
-      - name: Run Docker Container # Docker 컨테이너 실행
-        run: |
-          docker run --env MY_INPUT_VAR="${{ inputs.test-variable }}" \
-                     --env SEND_TO_FUNCTION="${{ inputs.send-to-function }}" \
-                     --env REST_API_KEY="${{ inputs.rest-api-key }}" \
-                     --env REDIRECT_URI="${{ inputs.redirect-uri }}" \
-                     --env CODE_KEY="${{ inputs.code-key }}" \
-                     --env MSG_TEMPLATE="${{ inputs.msg-template }}" \
-                     my-docker-image
-    
-# runs:
-#   using: 'docker'
-#   image: 'Dockerfile'
-#   env: # 깃허브 액션에서의 환경변수 설정
-#     MY_INPUT_VAR: ${{ inputs.test-variable }}
-#     SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
-#     REST_API_KEY: ${{ inputs.rest-api-key }}
-#     REDIRECT_URI: ${{ inputs.redirect-uri }}
-#     CODE_KEY: ${{ inputs.code-key }}
-#     MSG_TEMPLATE: ${{ inputs.msg-template }}
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env: # 깃허브 액션에서의 환경변수 설정
+    MY_INPUT_VAR: ${{ inputs.test-variable }}
+    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+    REST_API_KEY: ${{ inputs.rest-api-key }}
+    REDIRECT_URI: ${{ inputs.redirect-uri }}
+    CODE_KEY: ${{ inputs.code-key }}
+    MSG_TEMPLATE: ${{ inputs.msg-template }}
