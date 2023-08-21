@@ -1,6 +1,6 @@
 #!/bin/sh -l
 
-echo "Hello entry"
+echo "Hello entry~!"
 
 # Grant execute permission to all files in the directory
 chmod +x *
@@ -13,3 +13,4 @@ ls
 
 
 python test.py
+python kakaoTalkAlarm.py
