@@ -20,7 +20,7 @@ commit_time = os.environ.get('COMMIT_TIME')
 commit_message = os.environ.get('COMMIT_MESSAGE')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
-
+repo_url = os.environ.get('REPO_URL')
 
 # Print the user information
 print("User Name:", user_name)
@@ -30,6 +30,7 @@ print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
 print("MSG_TEMPLATE", msg_template)
+print("REPO_URL", repo_url)
 
 if event_name == 'Pull Request':
     if merged_status == 'true':
@@ -57,6 +58,12 @@ print(tokens)
 # 추가된 부분
 #token_json = json.loads(tokens)
 
+description=""
+# 조건문을 사용하여 데이터 준비
+if event_name == "push":
+    description += f"{to_branch}(으)로 push 완료\n'{commit_message}'"
+elif event_name == "Pull Request":
+    description += f"{from_branch}→{to_branch}\n'{commit_message}'"
 
 
 # 나에게 보내기
@@ -74,16 +81,6 @@ if send_to_function == 'send_to_me':
         "Authorization": "Bearer " + access_token # {access token}
     }
     
-
-    
-    
-    description=""
-    # 조건문을 사용하여 데이터 준비
-    if event_name == "push":
-        description += f"{to_branch}(으)로 push 완료\n'{commit_message}'"
-    elif event_name == "Pull Request":
-        description += f"{from_branch}→{to_branch}\n'{commit_message}'"
-
     
     # 사용자 템플릿 변수에 따라 텍스트, 피드 설정 - 개인 테스트용
     
@@ -101,8 +98,8 @@ if send_to_function == 'send_to_me':
                                                  "description": description,
                                                  "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                                                  "link": {
-                                                        "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                                                        "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                                                        "web_url": repo_url,
+                                                        "mobile_web_url": repo_url
                                                   }
                                              },
                                             "button_title": "깃헙으로 이동하기"                            
@@ -114,15 +111,15 @@ if send_to_function == 'send_to_me':
             "template_object" : json.dumps({ "object_type" : "text",
                                              "text" : f"{user_name}님이 {event_name}을 했어요!\n{description}",
                                              "link" : {
-                                                         "web_url" : redirect_uri,
-                                                         "mobile_web_url" : redirect_uri
+                                                         "web_url" : repo_url,
+                                                         "mobile_web_url" : repo_url
                                                       },
                                             "buttons": [
                                                 {
                                                     "title": "깃헙으로 이동하기",
                                                     "link": {
-                                                    "web_url": redirect_uri,
-                                                      "mobile_web_url": redirect_uri
+                                                    "web_url": repo_url,
+                                                      "mobile_web_url": repo_url
                                                     }
                                                 }
                                               ]
@@ -231,8 +228,8 @@ elif send_to_function == 'send_to_friends':
                     "description": description,
                     "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
                     "link": {
-                        "web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                        "mobile_web_url": "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                        "web_url": repo_url,
+                        "mobile_web_url": repo_url
                     }
                 },
                 "button_title": "깃헙으로 이동하기"
@@ -243,11 +240,11 @@ elif send_to_function == 'send_to_friends':
             'receiver_uuids': '["{}"]'.format(friend_id),
             "template_object": json.dumps({
                 "object_type":"text",
-                #"text":"pull request요청이 왔어요!! 리뷰해주세요!!",
+                #"text":"pull request요청이 왔어요! 리뷰해주세요!",
                 "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
                 "link":{
-                    "web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1",
-                    "mobile_web_url" : "https://github.com/hyeonjeong-ko/skku-git-assignment-1"
+                    "web_url" : repo_url,
+                    "mobile_web_url" : repo_url
                 },
                 "button_title": "깃헙으로 이동하기"
             })
