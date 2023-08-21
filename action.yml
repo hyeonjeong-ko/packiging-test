@@ -14,9 +14,6 @@ inputs:
   rest-api-key:
     description: "your kakaotalk rest api key"
     required: true
-  redirect-uri:
-    description: "your redirect-uri"
-    required: true
   access-token:
     description: "your kakaotalk access-token key (send_to_me)"
     required: false
@@ -65,7 +62,6 @@ runs:
     REPO_URL: ${{inputs.repo-url}}
     SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
     REST_API_KEY: ${{ inputs.rest-api-key }}
-    REDIRECT_URI: ${{ inputs.redirect-uri }}
     ACCESS_TOKEN: ${{ inputs.access-token }}
     REFRESH_TOKEN: ${{inputs.refresh-token}}
     MSG_TEMPLATE: ${{ inputs.msg-template }}
