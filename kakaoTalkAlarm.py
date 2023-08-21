@@ -157,9 +157,9 @@ elif send_to_function == 'send_to_friends':
         json.dump(tokens, fp)
     
     # 카카오 API 엑세스 토큰
-    # with open("kakao_code.json", "r") as fp:
-    #     tokens = json.load(fp)
-    # print(tokens["access_token"])
+    with open("kakao_code.json", "r") as fp:
+        tokens = json.load(fp)
+    print(tokens["access_token"])
 
     url = "https://kapi.kakao.com/v1/api/talk/friends" #친구 목록 가져오기
     header = {"Authorization": 'Bearer ' + tokens["access_token"]}
