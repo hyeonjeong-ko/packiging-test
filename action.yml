@@ -81,7 +81,7 @@ runs:
     COMMIT_MESSAGE: ${{ inputs.commit_message }}
     FROM_BRANCH: ${{ inputs.from_branch }}
     TO_BRANCH: ${{ inputs.to_branch }}
-    EXISTING_CONTEXT: ${{existing-context}}
+    EXISTING_CONTEXT: ${{ inputs.existing-context }}
 
 
 # runs:
