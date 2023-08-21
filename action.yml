@@ -92,9 +92,11 @@ runs:
         echo "INPUT_REDIRECT_URI=${{ inputs.redirect-uri }}" >> $GITHUB_ENV
         echo "INPUT_CODE_KEY=${{ inputs.code-key }}" >> $GITHUB_ENV
         echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
+      shell: bash
 
     - name: Run kakaoTalkAlarm.py
       run: python kakaoTalkAlarm.py
+      shell: bash
     # - id: random-number-generator
     #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
     #   shell: bash
