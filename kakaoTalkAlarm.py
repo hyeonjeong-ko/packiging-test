@@ -54,6 +54,8 @@ print(tokens)
 # 추가된 부분
 #token_json = json.loads(tokens)
 
+
+
 # 나에게 보내기
 if send_to_function == 'send_to_me':
     access_token = tokens['access_token']
@@ -61,8 +63,21 @@ if send_to_function == 'send_to_me':
     print(access_token)
     
     # kakao_code.json 파일 저장
-    with open("kakao_code.json", "w") as fp:
-        json.dump(tokens, fp)
+    # with open("kakao_code.json", "w") as fp:
+    #     json.dump(tokens, fp)
+
+
+    # Check if the kakao_code.json file exists
+    if os.path.exists("kakao_code.json"):
+        # Load existing tokens from the file
+        with open("kakao_code.json", "r") as fp:
+            existing_tokens = json.load(fp)
+        access_token = existing_tokens['access_token']
+    else:
+        # Save new tokens to the kakao_code.json file
+        with open("kakao_code.json", "w") as fp:
+            json.dump(tokens, fp)
+        access_token = tokens['access_token']
     
     url = "https://kapi.kakao.com/v2/api/talk/memo/default/send"
     headers = {
