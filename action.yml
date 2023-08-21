@@ -53,6 +53,7 @@ inputs:
 runs:
   using: "composite"
   steps:
+  
     - name: Set up Python 3.7
       uses: actions/setup-python@v2
       with:
@@ -95,7 +96,9 @@ runs:
       shell: bash
 
     - name: Run kakaoTalkAlarm.py
-      run: python kakaoTalkAlarm.py
+      run: |
+        echo "Hello 카카오알림파일~!"
+        python kakaoTalkAlarm.py
       shell: bash
     # - id: random-number-generator
     #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
