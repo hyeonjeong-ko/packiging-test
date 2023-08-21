@@ -61,12 +61,12 @@ runs:
     CODE_KEY: ${{ inputs.code-key }}
     MSG_TEMPLATE: ${{ inputs.msg-template }}
     
-    EVENT_NAME: ${{ inputs.event_name }}
-    MERGED_STATUS: ${{ inputs.merged_status }}
+    EVENT_NAME: ${{ github.event_name }}
+    MERGED_STATUS: ${{ github.event.pull_request.merged }}
     USER_NAME: $(git log -1 --pretty=format:'%an')
-    COMMIT_TIME: ${{ inputs.commit_time }}
-    COMMIT_MESSAGE: ${{ inputs.commit_message }}
-    FROM_BRANCH: ${{ inputs.from_branch }}
+    COMMIT_TIME: $(git log -1 --pretty=format:'%ci')
+    COMMIT_MESSAGE: $(git log -1 --pretty=format:'%s')
+    FROM_BRANCH: $(git symbolic-ref --short HEAD)
     TO_BRANCH: ${{ github.ref }}
 
 
