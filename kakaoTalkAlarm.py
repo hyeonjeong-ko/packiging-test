@@ -11,6 +11,9 @@ redirect_uri = os.environ.get('REDIRECT_URI') #ㅇㅇ
 code_key = os.environ.get('CODE_KEY') #이건 어디에 쓰는 물건인고...?
 msg_template = os.environ.get('MSG_TEMPLATE') #ㅇㅇ
 
+access_token = os.environ.get('ACCESS_TOKEN')
+refresh_token = os.environ.get('REFRESH_TOKEN')
+
 # Get user information from environment variables
 user_name = os.environ.get('USER_NAME')
 commit_time = os.environ.get('COMMIT_TIME')
@@ -58,20 +61,6 @@ print(tokens)
 
 # 나에게 보내기
 if send_to_function == 'send_to_me':
-    
-    # Check if the kakao_code.json file exists
-    if os.path.exists("kakao_code.json"):
-        # Load existing tokens from the file
-        with open("kakao_code.json", "r") as fp:
-            existing_tokens = json.load(fp)
-        access_token = existing_tokens['access_token']
-    else:
-        # Save new tokens to the kakao_code.json file
-        with open("kakao_code.json", "w") as fp:
-            json.dump(tokens, fp)
-        access_token = tokens['access_token']
-    
-    #access_token = tokens['access_token']
     
     print(access_token)
     
@@ -150,9 +139,7 @@ if send_to_function == 'send_to_me':
 
 # 친구에게 보내기
 elif send_to_function == 'send_to_friends':
-    # 추가된 부분    
-    refresh_token = tokens['refresh_token']
-    
+    print("친구에게 보내기!!!!!!!!!!!!!!!!!!!!!!")
     print("refresh_token"+ refresh_token)
 
     # 카카오톡 메시지 API
@@ -164,14 +151,15 @@ elif send_to_function == 'send_to_friends':
     }
     response = requests.post(url, data=data)
     tokens = response.json()
+    
     # kakao_code.json 파일 저장
     with open("kakao_code.json", "w") as fp:
         json.dump(tokens, fp)
     
     # 카카오 API 엑세스 토큰
-    with open("kakao_code.json", "r") as fp:
-        tokens = json.load(fp)
-    print(tokens["access_token"])
+    # with open("kakao_code.json", "r") as fp:
+    #     tokens = json.load(fp)
+    # print(tokens["access_token"])
 
     url = "https://kapi.kakao.com/v1/api/talk/friends" #친구 목록 가져오기
     header = {"Authorization": 'Bearer ' + tokens["access_token"]}
@@ -232,10 +220,6 @@ elif send_to_function == 'send_to_friends':
         description = f"{to_branch}로 push 완료\n'{commit_message}'"
     elif event_name == 'Pull Request':
         description = f"{from_branch}→{to_branch}\n'{commit_message}'"
-    
-    # 사용자 템플릿 변수에 따라 텍스트, 피드 설정
-    #template_type = 'Feed'
-    template_type = 'Text'
     
     if template_type == 'feed':
         data = {
