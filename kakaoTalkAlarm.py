@@ -8,7 +8,6 @@ merged_status = os.environ.get('MERGED_STATUS')
 send_to_function = os.environ.get('SEND_TO_FUNCTION') #이거 yml에서 분기되는거라 좀 고쳐야 할듯
 rest_api_key = os.environ.get('REST_API_KEY') #ㅇㅇ
 redirect_uri = os.environ.get('REDIRECT_URI') #ㅇㅇ
-code_key = os.environ.get('CODE_KEY') #이건 어디에 쓰는 물건인고...?
 msg_template = os.environ.get('MSG_TEMPLATE') #ㅇㅇ
 
 access_token = os.environ.get('ACCESS_TOKEN')
