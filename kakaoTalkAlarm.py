@@ -27,7 +27,7 @@ url = "https://kauth.kakao.com/oauth/token"
 data = {
     "grant_type" : "authorization_code",
     "client_id" : rest_api_key,
-    "redirect_url" : redirect_uri",
+    "redirect_url" : redirect_uri,
     "code" : code_key
 }
 response = requests.post(url, data=data)
