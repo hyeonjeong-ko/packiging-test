@@ -53,26 +53,30 @@ fi
 
 
 # 변경 사항 커밋 및 푸시
-if [ "$EVENT_NAME" = "push" ]; then
-  # Git 설정
-  git config --global user.name "GitHub Actions"
-  git config --global user.email "actions@github.com"
-
-  # 커밋 및 푸시
-  git add profile.md  # 변경된 파일을 추가
-  git commit -m "Update user profile"  # 커밋 메시지 설정
-  git push "https://$REPO_TOKEN@github.com/hyeonjeong-ko/test-marketplace.git" HEAD:main  # 토큰을 사용한 푸시
-fi
-
-
-# # 변경 사항 커밋 및 푸시
-# if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+# if [ "$EVENT_NAME" = "push" ]; then
+#   # Git 설정
 #   git config --global user.name "GitHub Actions"
 #   git config --global user.email "actions@github.com"
-#   git add profile.md
-#   git commit -m "Update user profile"
-#   git push
+
+#   # 커밋 및 푸시
+#   git add profile.md  # 변경된 파일을 추가
+#   git commit -m "Update user profile"  # 커밋 메시지 설정
+#   git push "https://$REPO_TOKEN@github.com/hyeonjeong-ko/test-marketplace.git" HEAD:main  # 토큰을 사용한 푸시
 # fi
+
+if [ "$EVENT_NAME" = "push" ]; then
+  # Git 설정
+  git init
+  git clone https://$REPO_TOKEN@github.com/hyeonjeong-ko/test-marketplace.git
+  cd test-marketplace
+  
+  git config --global user.email "YOUR EMAIL"
+  git config --global user.name "YOUR NAME"
+  
+  git add profile.md
+  git commit -m "Update user profile"
+  git push origin main
+  
 
 python test.py
 python kakaoTalkAlarm.py
