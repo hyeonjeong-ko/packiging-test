@@ -59,7 +59,7 @@ runs:
   image: 'Dockerfile'
   env: # 깃허브 액션에서의 환경변수 설정
     MY_INPUT_VAR: ${{ inputs.test-variable }}
-    REPO_URL: ${{inputs.repo-url}}
+    REPO_URL: ${{ inputs.repo-url }}
     SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
     REST_API_KEY: ${{ inputs.rest-api-key }}
     ACCESS_TOKEN: ${{ inputs.access-token }}
