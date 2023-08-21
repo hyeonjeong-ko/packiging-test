@@ -221,7 +221,7 @@ elif send_to_function == 'send_to_friends':
     elif event_name == 'Pull Request':
         description = f"{from_branch}→{to_branch}\n'{commit_message}'"
     
-    if template_type == 'feed':
+    if msg_template == 'feed':
         data = {
             'receiver_uuids': f'["{friend_id}"]',
             "template_object": json.dumps({
@@ -238,7 +238,7 @@ elif send_to_function == 'send_to_friends':
                 "button_title": "깃헙으로 이동하기"
             })
         }
-    elif template_type == 'text':
+    elif msg_template == 'text':
         data={
             'receiver_uuids': '["{}"]'.format(friend_id),
             "template_object": json.dumps({
