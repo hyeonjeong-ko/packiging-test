@@ -11,6 +11,6 @@ cd /app
 
 ls
 
-
+pip install requests
 python test.py
 python kakaoTalkAlarm.py
