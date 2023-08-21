@@ -39,7 +39,7 @@ fi
 
 # 마크다운 파일 업데이트
 if [ "$EVENT_NAME" = "push" ]; then
-  echo "${{ steps.new_content.outputs.new_content }}" > profile.md
+  echo "$NEW_CONTENT" > profile.md
 fi
 
 # 변경 사항 커밋 및 푸시
