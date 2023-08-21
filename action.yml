@@ -6,7 +6,7 @@ inputs:
     description: "카카오 사용자 입력 변수 테스트"
     required: true
   repo-url:
-    description: "your repository url"
+    description: "your repository url (link sent with the message)"
     required: true
   send-to-function:
     description: "The function to execute (send_to_friends or send_to_me)"
