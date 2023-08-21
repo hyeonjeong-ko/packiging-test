@@ -84,6 +84,8 @@ if send_to_function == 'send_to_me':
     print("description:" + description)
 
     print("메시지부분시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
+
+    print("msg_template: " + msg_template)
     
     if msg_template == "feed":
         data = {
