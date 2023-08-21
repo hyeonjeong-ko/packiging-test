@@ -19,6 +19,11 @@ commit_message = os.environ.get('COMMIT_MESSAGE')
 from_branch = os.environ.get('FROM_BRANCH')
 to_branch = os.environ.get('TO_BRANCH')
 repo_url = os.environ.get('REPO_URL')
+msg_img = os.environ.get('MSG_IMG')
+
+if msg_img == None:
+    msg_img = "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png"
+
 
 # Print the user information
 print("User Name:", user_name)
@@ -210,8 +215,7 @@ elif send_to_function == 'send_to_friends':
                 "content": {
                     "title": f"{user_name}님이 {event_name}을 했어요!",
                     "description": description,
-                    "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/330px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
-                    "link": {
+                    "image_url": msg_img,
                         "web_url": repo_url,
                         "mobile_web_url": repo_url
                     }
