@@ -216,11 +216,12 @@ elif send_to_function == 'send_to_friends':
                     "title": f"{user_name}님이 {event_name}을 했어요!",
                     "description": description,
                     "image_url": msg_img,
+                    "link":{
                         "web_url": repo_url,
                         "mobile_web_url": repo_url
                     }
                 },
-                #"button_title": "깃헙으로 이동하기"
+                "button_title": "깃헙으로 이동하기"
             })
         }
     elif msg_template == 'text':
@@ -233,7 +234,7 @@ elif send_to_function == 'send_to_friends':
                     "web_url" : repo_url,
                     "mobile_web_url" : repo_url
                 },
-                #"button_title": "깃헙으로 이동하기"
+                "button_title": "깃헙으로 이동하기"
             })
         }
         
