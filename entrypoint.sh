@@ -33,14 +33,24 @@ if [ "$EVENT_NAME" = "push" ]; then
   NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
   NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
   # NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
-  # NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
   echo "::set-output name=new_content::$NEW_CONTENT"
 fi
 
-# 마크다운 파일 업데이트
-if [ "$EVENT_NAME" = "push" ]; then
-  echo "$NEW_CONTENT" > profile.md
+
+# 만약 existing_context가 비어있지 않다면 profile.md 파일 생성 후 내용 추가
+if [ -n "$existing_context" ]; then
+  echo "$existing_context" >> profile.md
 fi
+
+# 마크다운 파일 업데이트
+echo "마크다운 파일 업데이트"
+if [ -n "$new_content" ]; then
+  if [ ! -f "profile.md" ]; then
+    touch profile.md  # 파일이 없을 경우 생성
+  fi
+  echo "$new_content" >> profile.md
+fi
+
 
 # 변경 사항 커밋 및 푸시
 if [ "$GITHUB_EVENT_NAME" = "push" ]; then
