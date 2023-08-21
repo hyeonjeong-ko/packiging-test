@@ -231,7 +231,7 @@ elif send_to_function == 'send_to_friends':
     #template_type = 'Feed'
     template_type = 'Text'
     
-    if template_type == 'Feed':
+    if template_type == 'feed':
         data = {
             'receiver_uuids': f'["{friend_id}"]',
             "template_object": json.dumps({
@@ -248,7 +248,7 @@ elif send_to_function == 'send_to_friends':
                 "button_title": "깃헙으로 이동하기"
             })
         }
-    elif template_type == 'Text':
+    elif template_type == 'text':
         data={
             'receiver_uuids': '["{}"]'.format(friend_id),
             "template_object": json.dumps({
