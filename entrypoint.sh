@@ -45,6 +45,7 @@ fi
 
 # 만약 existing_context가 비어있지 않다면 profile.md 파일 생성 후 내용 추가
 if [ -n "$existing_context" ]; then
+  echo "만약 existing_context가 비어있지 않다면 profile.md 파일 생성 후 내용 추가"
   echo "$existing_context" >> profile.md
 fi
 
@@ -53,6 +54,7 @@ echo "마크다운 파일 업데이트"
 if [ -n "$new_content" ]; then
   if [ ! -f "profile.md" ]; then
     touch profile.md  # 파일이 없을 경우 생성
+    echo "파일 생성"
   fi
   echo "$new_content" >> profile.md
 fi
@@ -79,6 +81,8 @@ if [ "$EVENT_NAME" = "push" ]; then
   
   git config --global user.email "YOUR EMAIL"
   git config --global user.name "YOUR NAME"
+  git config --global init.defaultBranch main
+
   
   git add profile.md
   git commit -m "Update user profile"
