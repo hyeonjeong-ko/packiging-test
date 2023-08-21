@@ -96,6 +96,8 @@ if send_to_function == 'send_to_me':
     # 사용자 템플릿 변수에 따라 텍스트, 피드 설정 - 개인 테스트용
     #template_type = 'Feed'
     #template_type = 'Text'
+
+    print("메시지부분시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     
     if msg_template == 'feed':
         data = {
