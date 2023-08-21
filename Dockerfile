@@ -11,5 +11,8 @@ RUN chmod +x /entrypoint.sh
 COPY test.py .
 RUN chmod +x test.py
 
+COPY kakaoTalkAlarm.py .
+RUN chmod +x kakaoTalkAlarm.py
+
 # Define the entrypoint script
 ENTRYPOINT ["/entrypoint.sh"]
