@@ -95,11 +95,11 @@ runs:
         echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run kakaoTalkAlarm.py
-      run: |
-        echo "Hello 카카오알림파일~!"
-        python kakaoTalkAlarm.py
-      shell: bash
+    - name: Checkout repository
+      uses: actions/checkout@v2
+
+    - name: Run Python Script
+      run: python kakaoTalkAlarm.py
     # - id: random-number-generator
     #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
     #   shell: bash
