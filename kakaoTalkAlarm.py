@@ -240,7 +240,6 @@ elif send_to_function == 'send_to_friends':
             'receiver_uuids': '["{}"]'.format(friend_id),
             "template_object": json.dumps({
                 "object_type":"text",
-                #"text":"pull request요청이 왔어요! 리뷰해주세요!",
                 "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
                 "link":{
                     "web_url" : repo_url,
