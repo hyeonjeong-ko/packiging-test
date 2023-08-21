@@ -26,6 +26,7 @@ print("Commit Time:", commit_time)
 print("Commit Message:", commit_message)
 print("From Branch:", from_branch)
 print("To Branch:", to_branch)
+print("MSG_TEMPLATE", msg_template)
 
 if event_name == 'Pull Request':
     if merged_status == 'true':
