@@ -68,6 +68,7 @@ runs:
     ACCESS_TOKEN: ${{ inputs.access-token }}
     REFRESH_TOKEN: ${{inputs.refresh-token}}
     MSG_TEMPLATE: ${{ inputs.msg-template }}
+    MSG_IMG: ${{ inputs.msg-img }}
     
     EVENT_NAME: ${{ inputs.event_name }}
     MERGED_STATUS: ${{ inputs.merged_status }}
