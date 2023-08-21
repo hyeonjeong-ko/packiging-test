@@ -21,7 +21,10 @@ inputs:
     description: "your kakaotalk refresh-token key (send_to_friends)"
     required: false
   msg-template:
-    description: "message template option (feed or text)"
+    description: "message template option (feed or text) ＊default: text"
+    required: false
+  msg-img:
+    description: "Specifying an image for sending in feed format."
     required: false
 
   # GitHub Environment Variables
