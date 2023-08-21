@@ -136,13 +136,17 @@ name: My GitHub Action
 on:
   push:
     branches:
-      - main
-# pull_request:
-#   branches:
-#     - main
+      - 'main'
+  pull_request:
+    types:
+      - opened
+      - synchronize
+    branches:
+      - '*'
+
 
 jobs:
-  test_v1:
+  run-hjk-test-v1:
     runs-on: ubuntu-latest
     
     steps:
@@ -163,23 +167,35 @@ jobs:
         echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
         echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
         echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
-        
-        if [ -f "profile.md" ]; then
-          EXISTING_CONTEXT=$(cat profile.md)
-        else
-          EXISTING_CONTEXT=""
-        fi
+
+    - name: Set User Information
+      if: github.event_name == 'pull_request'
+      id: user_info_pull_request
+      run: |
+        USER_NAME=$(git log -1 --pretty=format:'%an')
+        COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+        COMMIT_MESSAGE="${{ github.event.pull_request.title }}"  # Use the pull request title
+        FROM_BRANCH=${{ github.event.pull_request.head.ref }}
+        TO_BRANCH=${{ github.event.pull_request.base.ref }}
+        echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+        echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+        echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
+        echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
       
     - name: Run hjk-test-v1 action
-      uses: hyeonjeong-ko/packiging-test@7.9
+      uses: hyeonjeong-ko/packiging-test@7.4
       with:
-        test-variable: "친구에게 보내기!"
+        test-variable: "테스트"
         send-to-function: "send_to_friends"
-        refresh-token: "{your_refresh_token}" #나에게 보내기는 access-token이 필수
+        rest-api-key: "152831f2d43d3d3c3b003a24ec2fa088"
+        access-token: "JMStwWRZP369t5LiLCRc_nOlnxDcDJpcRQwCJzheCj10mQAAAYoYr6WV"
+        refresh-token: "oHemIwSYyb2OJz5nSX7qQKUTIhQ2w1Pokyooj_XjCj10mQAAAYoYr6WU"
         msg-template: "feed"
         repo-url: "https://github.com/hyeonjeong-ko/test-marketplace"
+        msg-img: "https://item.kakaocdn.net/do/416976b0c05bde28d706525b7c6c97ed41d1a2caccd0c566eab28b91e2e5d306"
 
-        existing-context: $EXISTING_CONTEXT
+        
         event_name: ${{ github.event_name }}
         MERGED_STATUS: ${{ github.event.pull_request.merged }}
         USER_NAME: $USER_NAME
