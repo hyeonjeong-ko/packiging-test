@@ -51,63 +51,26 @@ inputs:
   #   required: true
 
 runs:
-  using: "composite"
-  steps:
-    - name: Set User Information
-      id: user_info_push
-      run: |
-        echo "Hello action~!"
-        chmod +x *
-        python -m pip install --upgrade pip
-        pip install requests
-        USER_NAME=$(git log -1 --pretty=format:'%an')
-        COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
-        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
-        FROM_BRANCH=$(git symbolic-ref --short HEAD)
-        TO_BRANCH=${{ github.ref }}
-        echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
-        echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
-        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
-        echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
-        echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
-        
-        if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-          echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
-          echo "MERGED_STATUS=${{ github.event.pull_request.merged }}" >> $GITHUB_ENV
-        elif [ "$GITHUB_EVENT_NAME" = "push" ]; then
-          echo "EVENT_NAME=Push" >> $GITHUB_ENV
-        elif [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
-          echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
-        fi
-
-        echo "INPUT_TEST_VARIABLE=${{ inputs.test-variable }}" >> $GITHUB_ENV
-        echo "INPUT_SEND_TO_FUNCTION=${{ inputs.send-to-function }}" >> $GITHUB_ENV
-        echo "INPUT_REST_API_KEY=${{ inputs.rest-api-key }}" >> $GITHUB_ENV
-        echo "INPUT_REDIRECT_URI=${{ inputs.redirect-uri }}" >> $GITHUB_ENV
-        echo "INPUT_CODE_KEY=${{ inputs.code-key }}" >> $GITHUB_ENV
-        echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
-        
-        docker build -t my-docker-image .
-
-        docker run \
-          -e MY_INPUT_VAR="${{ inputs.test-variable }}" \
-          -e SEND_TO_FUNCTION="${{ inputs.send-to-function }}" \
-          -e REST_API_KEY="${{ inputs.rest-api-key }}" \
-          -e REDIRECT_URI="${{ inputs.redirect-uri }}" \
-          -e CODE_KEY="${{ inputs.code-key }}" \
-          -e MSG_TEMPLATE="${{ inputs.msg-template }}" \
-          -e EVENT_NAME="${{ env.EVENT_NAME }}" \
-          -e MERGED_STATUS="${{ env.MERGED_STATUS }}" \
-          -e USER_NAME="${{ env.USER_NAME }}" \
-          -e COMMIT_TIME="${{ env.COMMIT_TIME }}" \
-          -e COMMIT_MESSAGE="${{ env.COMMIT_MESSAGE }}" \
-          -e FROM_BRANCH="${{ env.FROM_BRANCH }}" \
-          -e TO_BRANCH="${{ env.TO_BRANCH }}" \
-          my-docker-image
-      shell: bash
+  using: 'docker'
+  image: 'Dockerfile'
+  env: # 깃허브 액션에서의 환경변수 설정
+    MY_INPUT_VAR: ${{ inputs.test-variable }}
+    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+    REST_API_KEY: ${{ inputs.rest-api-key }}
+    REDIRECT_URI: ${{ inputs.redirect-uri }}
+    CODE_KEY: ${{ inputs.code-key }}
+    MSG_TEMPLATE: ${{ inputs.msg-template }}
+    
+    EVENT_NAME: ${{ inputs.event_name }}
+    MERGED_STATUS: ${{ inputs.merged_status }}
+    USER_NAME: $(git log -1 --pretty=format:'%an')
+    COMMIT_TIME: ${{ inputs.commit_time }}
+    COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    FROM_BRANCH: ${{ inputs.from_branch }}
+    TO_BRANCH: ${{ github.ref }}
 
 
-      
+
 # runs:
 #   using: 'docker'
 #   image: 'Dockerfile'
@@ -125,4 +88,4 @@ runs:
 #     COMMIT_TIME: ${{ inputs.commit_time }}
 #     COMMIT_MESSAGE: ${{ inputs.commit_message }}
 #     FROM_BRANCH: ${{ inputs.from_branch }}
-    # TO_BRANCH: ${{ inputs.to_branch }}
+#     TO_BRANCH: ${{ inputs.to_branch }}
