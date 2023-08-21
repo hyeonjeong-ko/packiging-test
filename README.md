@@ -183,7 +183,7 @@ jobs:
         echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
         echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
       
-    - name: Run hjk-test-v1 action
+    - name: Run Kakao Alarm Bot Action
       uses: hyeonjeong-ko/packiging-test@7.4
       with:
         test-variable: "테스트"
