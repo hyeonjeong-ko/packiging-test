@@ -220,7 +220,7 @@ elif send_to_function == 'send_to_friends':
                         "mobile_web_url": repo_url
                     }
                 },
-                #"button_title": "깃헙으로 이동하기"
+                "button_title": "깃헙으로 이동하기"
             })
         }
     elif msg_template == 'text':
