@@ -90,6 +90,7 @@ runs:
 
     - name: Build Docker image
       run: docker build -t my-docker-image .
+      shell: bash
     
     - name: Run Docker container
       run: |
@@ -108,7 +109,7 @@ runs:
           -e FROM_BRANCH="${{ env.FROM_BRANCH }}" \
           -e TO_BRANCH="${{ env.TO_BRANCH }}" \
           my-docker-image
-
+      shell: bash
 
 
       
