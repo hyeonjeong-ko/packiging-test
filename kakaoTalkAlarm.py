@@ -73,7 +73,7 @@ if send_to_function == 'send_to_me':
     
     description=""
     # 조건문을 사용하여 데이터 준비
-    if event_name == "Push":
+    if event_name == "push":
         description += f"{to_branch}(으)로 push 완료\n'{commit_message}'"
     elif event_name == "Pull Request":
         description += f"{from_branch}→{to_branch}\n'{commit_message}'"
