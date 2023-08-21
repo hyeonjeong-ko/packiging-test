@@ -85,7 +85,7 @@ if send_to_function == 'send_to_me':
                                              "content":{
                                                  "title":f"{user_name}님이 {event_name}(을)를 했어요!",
                                                  "description": description,
-                                                 "image_url": "https://upload.wikimedia.org/wikipedia/commons/thumb/9/95/Font_Awesome_5_brands_github.svg/1200px-Font_Awesome_5_brands_github.svg.png",  # Replace with your image URL
+                                                 "image_url": msg_img,
                                                  "link": {
                                                         "web_url": repo_url,
                                                         "mobile_web_url": repo_url
