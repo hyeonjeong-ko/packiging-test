@@ -53,7 +53,7 @@ fi
 
 
 # 변경 사항 커밋 및 푸시
-if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+if [ "$EVENT_NAME" = "push" ]; then
   # Git 설정
   git config --global user.name "GitHub Actions"
   git config --global user.email "actions@github.com"
