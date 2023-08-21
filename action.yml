@@ -88,24 +88,6 @@ runs:
         echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run Docker container
-      using: 'docker'
-      image: 'Dockerfile'
-      env:
-        MY_INPUT_VAR: ${{ inputs.test-variable }}
-        SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
-        REST_API_KEY: ${{ inputs.rest-api-key }}
-        REDIRECT_URI: ${{ inputs.redirect-uri }}
-        CODE_KEY: ${{ inputs.code-key }}
-        MSG_TEMPLATE: ${{ inputs.msg-template }}
-        EVENT_NAME: ${{ github.event_name }}
-        MERGED_STATUS: ${{ github.event.pull_request.merged }}
-        USER_NAME: ${{ env.USER_NAME }}
-        COMMIT_TIME: ${{ env.COMMIT_TIME }}
-        COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
-        FROM_BRANCH: ${{ env.FROM_BRANCH }}
-        TO_BRANCH: ${{ env.TO_BRANCH }}
-
     - name: Build Docker image
       run: docker build -t my-docker-image .
     
