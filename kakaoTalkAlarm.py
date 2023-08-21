@@ -233,7 +233,7 @@ elif send_to_function == 'send_to_friends':
                     "web_url" : repo_url,
                     "mobile_web_url" : repo_url
                 },
-                "button_title": "깃헙으로 이동하기"
+                #"button_title": "깃헙으로 이동하기"
             })
         }
         
