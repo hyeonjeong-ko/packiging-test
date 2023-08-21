@@ -27,20 +27,33 @@ echo "===============================================세부 명령 진입=======
 #   fi
 # fi
 
-# # 새 프로필 내용 생성
-# if [ "$GITHUB_EVENT_NAME" = "push" ]; then
-#   NEW_CONTENT="## User Profile\n\n"
-#   NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
-#   NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
-#   NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
-#   NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
-#   echo "::set-output name=new_content::$NEW_CONTENT"
-# fi
+# 새 프로필 내용 생성
+if [ "$EVENT_NAME" = "push" ]; then
+  NEW_CONTENT="## User Profile\n\n"
+  NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
+  NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
+  NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
+  NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
+  echo "::set-output name=new_content::$NEW_CONTENT"
+fi
 
-# # 마크다운 파일 업데이트
-# if [ "$GITHUB_EVENT_NAME" = "push" ]; then
-#   echo "${{ steps.new_content.outputs.new_content }}" > profile.md
-# fi
+# 마크다운 파일 업데이트
+if [ "$EVENT_NAME" = "push" ]; then
+  echo "${{ steps.new_content.outputs.new_content }}" > profile.md
+fi
+
+# 변경 사항 커밋 및 푸시
+if [ "$GITHUB_EVENT_NAME" = "push" ]; then
+  # Git 설정
+  git config --global user.name "GitHub Actions"
+  git config --global user.email "actions@github.com"
+
+  # 커밋 및 푸시
+  git add profile.md  # 변경된 파일을 추가
+  git commit -m "Update user profile"  # 커밋 메시지 설정
+  git push "https://$REPO_TOKEN@github.com/hyeonjeong-ko/test-marketplace.git" HEAD:main  # 토큰을 사용한 푸시
+fi
+
 
 # # 변경 사항 커밋 및 푸시
 # if [ "$GITHUB_EVENT_NAME" = "push" ]; then
