@@ -7,7 +7,6 @@ event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
 send_to_function = os.environ.get('SEND_TO_FUNCTION') #이거 yml에서 분기되는거라 좀 고쳐야 할듯
 rest_api_key = os.environ.get('REST_API_KEY') #ㅇㅇ
-redirect_uri = os.environ.get('REDIRECT_URI') #ㅇㅇ
 msg_template = os.environ.get('MSG_TEMPLATE') #ㅇㅇ
 
 access_token = os.environ.get('ACCESS_TOKEN')
@@ -42,20 +41,6 @@ elif event_name == 'push':
 else:
     print("Event type:", event_name)
 
-# 카카오톡 메시지 API
-url = "https://kauth.kakao.com/oauth/token"
-data = {
-    "grant_type" : "authorization_code",
-    "client_id" : rest_api_key,
-    "redirect_url" : redirect_uri,
-    "code" : code_key
-}
-response = requests.post(url, data=data)
-tokens = response.json()
-print(tokens)
-
-# 추가된 부분
-#token_json = json.loads(tokens)
 
 description=""
 # 조건문을 사용하여 데이터 준비
