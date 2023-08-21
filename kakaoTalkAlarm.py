@@ -35,7 +35,7 @@ print("To Branch:", to_branch)
 print("MSG_TEMPLATE", msg_template)
 print("REPO_URL", repo_url)
 
-if event_name == 'Pull Request':
+if event_name == 'pull_request':
     if merged_status == 'true':
         print("This is a merged Pull Request.")
         event_name = 'Merge'
@@ -51,7 +51,7 @@ description=""
 # 조건문을 사용하여 데이터 준비
 if event_name == "push":
     description += f"{to_branch}(으)로 push 완료\n'{commit_message}'"
-elif event_name == "Pull Request":
+elif event_name == "pull_request":
     description += f"{from_branch}→{to_branch}\n'{commit_message}'"
 
 
@@ -162,7 +162,7 @@ elif send_to_function == 'send_to_friends':
     
     # Git Action에서 받은 정보를 사용하여 메시지 내용 구성
     #(sc가 추가)근데 user_info_pull_request인지 user_info_push인지 체크
-    #if event_name == 'Pull Request':
+    #if event_name == 'pull_request':
     #    user_name = "'${{ steps.user_info_pull_request.outputs.user_name }}'"
     #    commit_time = "'${{ steps.user_info_pull_request.outputs.commit_time }}'"
     #    commit_message = "'${{ steps.user_info_pull_request.outputs.commit_message }}'"
@@ -202,9 +202,9 @@ elif send_to_function == 'send_to_friends':
 
     
     # 조건문을 사용하여 데이터 준비
-    if event_name == 'Push':
+    if event_name == 'push':
         description = f"{to_branch}로 push 완료\n'{commit_message}'"
-    elif event_name == 'Pull Request':
+    elif event_name == 'pull_request':
         description = f"{from_branch}→{to_branch}\n'{commit_message}'"
     
     if msg_template == 'feed':
