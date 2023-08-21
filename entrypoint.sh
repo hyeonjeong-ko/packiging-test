@@ -11,8 +11,6 @@ cd /app
 
 ls
 
-sudo chown -R $USER /github/home/.cache/pip
-
 python -m pip install --upgrade pip
 pip install requests
 
