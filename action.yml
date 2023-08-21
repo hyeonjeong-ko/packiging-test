@@ -5,6 +5,9 @@ inputs:
   test-variable:
     description: "카카오 사용자 입력 변수 테스트"
     required: true
+  repo_url:
+    description: "your repository url"
+    required: true
   send-to-function:
     description: "The function to execute (send_to_friends or send_to_me)"
     required: true
@@ -15,10 +18,10 @@ inputs:
     description: "your redirect-uri"
     required: true
   access-token:
-    description: "your kakaotalk access-token key"
+    description: "your kakaotalk access-token key (send_to_me)"
     required: false
   refresh-token:
-    description: "your kakaotalk refresh-token key"
+    description: "your kakaotalk refresh-token key (send_to_friends)"
     required: false
   msg-template:
     description: "message template option (feed or text)"
