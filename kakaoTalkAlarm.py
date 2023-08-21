@@ -200,43 +200,44 @@ elif send_to_function == 'send_to_friends':
     print("From Branch:", from_branch)
     print("To Branch:", to_branch)
 
+    #친구가 여러명이면 list에서 반복문
+    for friend_id in friedns_list: 
+        # 조건문을 사용하여 데이터 준비
+        if event_name == 'push':
+            description = f"{to_branch}로 push 완료\n'{commit_message}'"
+        elif event_name == 'pull_request':
+            description = f"{from_branch}→{to_branch}\n'{commit_message}'"
     
-    # 조건문을 사용하여 데이터 준비
-    if event_name == 'push':
-        description = f"{to_branch}로 push 완료\n'{commit_message}'"
-    elif event_name == 'pull_request':
-        description = f"{from_branch}→{to_branch}\n'{commit_message}'"
-    
-    if msg_template == 'feed':
-        data = {
-            'receiver_uuids': f'["{friend_id}"]',
-            "template_object": json.dumps({
-                "object_type": "feed",
-                "content": {
-                    "title": f"{user_name}님이 {event_name}을 했어요!",
-                    "description": description,
-                    "image_url": msg_img,
+        if msg_template == 'feed':
+            data = {
+                'receiver_uuids': f'["{friend_id}"]',
+                "template_object": json.dumps({
+                    "object_type": "feed",
+                    "content": {
+                        "title": f"{user_name}님이 {event_name}을 했어요!",
+                        "description": description,
+                        "image_url": msg_img,
+                        "link":{
+                            "web_url": repo_url,
+                            "mobile_web_url": repo_url
+                        }
+                    },
+                    "button_title": "깃헙으로 이동하기"
+                })
+            }
+        elif msg_template == 'text':
+            data={
+                'receiver_uuids': '["{}"]'.format(friend_id),
+                "template_object": json.dumps({
+                    "object_type":"text",
+                    "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
                     "link":{
-                        "web_url": repo_url,
-                        "mobile_web_url": repo_url
-                    }
-                },
-                "button_title": "깃헙으로 이동하기"
-            })
-        }
-    elif msg_template == 'text':
-        data={
-            'receiver_uuids': '["{}"]'.format(friend_id),
-            "template_object": json.dumps({
-                "object_type":"text",
-                "text":f"{user_name}님이 {event_name}을 했어요!\n{description}",
-                "link":{
-                    "web_url" : repo_url,
-                    "mobile_web_url" : repo_url
-                },
-                "button_title": "깃헙으로 이동하기"
-            })
-        }
+                        "web_url" : repo_url,
+                        "mobile_web_url" : repo_url
+                    },
+                    "button_title": "깃헙으로 이동하기"
+                })
+            }
         
     
     print(f"메시지:'{commit_message}'\n시간:'{commit_time}'\n")
