@@ -32,8 +32,8 @@ if [ "$EVENT_NAME" = "push" ]; then
   NEW_CONTENT="## User Profile\n\n"
   NEW_CONTENT+="### '$COMMIT_TIME'에 '$USER_NAME'님이 merge 하였음을 기록합니다\n\n"
   NEW_CONTENT+="**Commit Message:** $COMMIT_MESSAGE\n\n"
-  NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
-  NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
+  # NEW_CONTENT+="${{ steps.read_existing.outputs.existing_content }}\n"
+  # NEW_CONTENT+="${{ steps.new_content.outputs.new_content }}\n"
   echo "::set-output name=new_content::$NEW_CONTENT"
 fi
 
