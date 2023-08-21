@@ -26,6 +26,10 @@ inputs:
   msg-img:
     description: "Specifying an image for sending in feed format."
     required: false
+  existing-context:
+    description: "read-me existing-context"
+    required: false
+  
 
   # GitHub Environment Variables
   event_name:
@@ -77,6 +81,7 @@ runs:
     COMMIT_MESSAGE: ${{ inputs.commit_message }}
     FROM_BRANCH: ${{ inputs.from_branch }}
     TO_BRANCH: ${{ inputs.to_branch }}
+    EXISTING_CONTEXT: ${{existing-context}}
 
 
 # runs:
