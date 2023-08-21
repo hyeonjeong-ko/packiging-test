@@ -21,50 +21,104 @@ inputs:
     description: "message template option (feed or text)"
     required: false
 
-  # GitHub Environment Variables
-  event_name:
-    description: "The name of the GitHub event that triggered the workflow."
-    required: true
+  # # GitHub Environment Variables
+  # event_name:
+  #   description: "The name of the GitHub event that triggered the workflow."
+  #   required: true
   
-  merged_status:
-    description: "Indicates whether the pull request associated with the event was merged."
-    required: true
+  # merged_status:
+  #   description: "Indicates whether the pull request associated with the event was merged."
+  #   required: true
   
-  user_name:
-    description: "The name of the user who authored the last commit in the pull request."
-    required: true
+  # user_name:
+  #   description: "The name of the user who authored the last commit in the pull request."
+  #   required: true
   
-  commit_time:
-    description: "The timestamp of the last commit in the pull request, in ISO 8601 format."
-    required: true
+  # commit_time:
+  #   description: "The timestamp of the last commit in the pull request, in ISO 8601 format."
+  #   required: true
   
-  commit_message:
-    description: "The message of the last commit in the pull request."
-    required: true
+  # commit_message:
+  #   description: "The message of the last commit in the pull request."
+  #   required: true
   
-  from_branch:
-    description: "The name of the branch from which the pull request originates."
-    required: true
+  # from_branch:
+  #   description: "The name of the branch from which the pull request originates."
+  #   required: true
   
-  to_branch:
-    description: "The name of the branch to which the pull request is merged."
-    required: true
-    
+  # to_branch:
+  #   description: "The name of the branch to which the pull request is merged."
+  #   required: true
+
 runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env: # 깃허브 액션에서의 환경변수 설정
-    MY_INPUT_VAR: ${{ inputs.test-variable }}
-    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
-    REST_API_KEY: ${{ inputs.rest-api-key }}
-    REDIRECT_URI: ${{ inputs.redirect-uri }}
-    CODE_KEY: ${{ inputs.code-key }}
-    MSG_TEMPLATE: ${{ inputs.msg-template }}
+  using: "composite"
+  steps:
+    - name: Set up Python 3.7
+      uses: actions/setup-python@v2
+      with:
+        python-version: 3.7
+
+    - name: Set User Information
+      if: github.event_name == 'push'
+      id: user_info_push
+      run: |
+        echo "Hello action~!"
+        chmod +x *
+        python -m pip install --upgrade pip
+        pip install requests
+        USER_NAME=$(git log -1 --pretty=format:'%an')
+        COMMIT_TIME=$(git log -1 --pretty=format:'%ci')
+        COMMIT_MESSAGE=$(git log -1 --pretty=format:'%s')
+        FROM_BRANCH=$(git symbolic-ref --short HEAD)  # Get the current branch name
+        TO_BRANCH=${GITHUB_REF#refs/heads/}  # Remove the "refs/heads/" prefix from GITHUB_REF
+        echo "USER_NAME=$USER_NAME" >> $GITHUB_ENV
+        echo "COMMIT_TIME=$COMMIT_TIME" >> $GITHUB_ENV
+        echo "COMMIT_MESSAGE=$COMMIT_MESSAGE" >> $GITHUB_ENV
+        echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
+        echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
+        
+        if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
+          echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
+          echo "MERGED_STATUS=${{ github.event.pull_request.merged }}" >> $GITHUB_ENV
+        elif [ "$GITHUB_EVENT_NAME" = "push" ]; then
+          echo "EVENT_NAME=Push" >> $GITHUB_ENV
+        elif [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
+          echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
+        fi
+
+        echo "INPUT_TEST_VARIABLE=${{ inputs.test-variable }}" >> $GITHUB_ENV
+        echo "INPUT_SEND_TO_FUNCTION=${{ inputs.send-to-function }}" >> $GITHUB_ENV
+        echo "INPUT_REST_API_KEY=${{ inputs.rest-api-key }}" >> $GITHUB_ENV
+        echo "INPUT_REDIRECT_URI=${{ inputs.redirect-uri }}" >> $GITHUB_ENV
+        echo "INPUT_CODE_KEY=${{ inputs.code-key }}" >> $GITHUB_ENV
+        echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
+
+    - name: Run kakaoTalkAlarm.py
+      run: python kakaoTalkAlarm.py
+    # - id: random-number-generator
+    #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
+    #   shell: bash
+    # - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
+    #   shell: bash
+    # - run: goodbye.sh
+    #   shell: bash
+
     
-    EVENT_NAME: ${{ inputs.event_name }}
-    MERGED_STATUS: ${{ inputs.merged_status }}
-    USER_NAME: ${{ inputs.user_name }}
-    COMMIT_TIME: ${{ inputs.commit_time }}
-    COMMIT_MESSAGE: ${{ inputs.commit_message }}
-    FROM_BRANCH: ${{ inputs.from_branch }}
-    TO_BRANCH: ${{ inputs.to_branch }}
+# runs:
+#   using: 'docker'
+#   image: 'Dockerfile'
+#   env: # 깃허브 액션에서의 환경변수 설정
+#     MY_INPUT_VAR: ${{ inputs.test-variable }}
+#     SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+#     REST_API_KEY: ${{ inputs.rest-api-key }}
+#     REDIRECT_URI: ${{ inputs.redirect-uri }}
+#     CODE_KEY: ${{ inputs.code-key }}
+#     MSG_TEMPLATE: ${{ inputs.msg-template }}
+    
+#     EVENT_NAME: ${{ inputs.event_name }}
+#     MERGED_STATUS: ${{ inputs.merged_status }}
+#     USER_NAME: ${{ inputs.user_name }}
+#     COMMIT_TIME: ${{ inputs.commit_time }}
+#     COMMIT_MESSAGE: ${{ inputs.commit_message }}
+#     FROM_BRANCH: ${{ inputs.from_branch }}
+    # TO_BRANCH: ${{ inputs.to_branch }}
