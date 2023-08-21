@@ -33,7 +33,7 @@ if event_name == 'Pull Request':
         event_name = 'Merge'
     else:
         print("This is an open Pull Request.")
-elif event_name == 'Push':
+elif event_name == 'push':
     print("This is a Push event.")
 else:
     print("Event type:", event_name)
