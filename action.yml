@@ -105,6 +105,30 @@ runs:
         COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }}
         FROM_BRANCH: ${{ env.FROM_BRANCH }}
         TO_BRANCH: ${{ env.TO_BRANCH }}
+
+    - name: Build Docker image
+      run: docker build -t my-docker-image .
+    
+    - name: Run Docker container
+      run: |
+        docker run \
+          -e MY_INPUT_VAR="${{ inputs.test-variable }}" \
+          -e SEND_TO_FUNCTION="${{ inputs.send-to-function }}" \
+          -e REST_API_KEY="${{ inputs.rest-api-key }}" \
+          -e REDIRECT_URI="${{ inputs.redirect-uri }}" \
+          -e CODE_KEY="${{ inputs.code-key }}" \
+          -e MSG_TEMPLATE="${{ inputs.msg-template }}" \
+          -e EVENT_NAME="${{ env.EVENT_NAME }}" \
+          -e MERGED_STATUS="${{ env.MERGED_STATUS }}" \
+          -e USER_NAME="${{ env.USER_NAME }}" \
+          -e COMMIT_TIME="${{ env.COMMIT_TIME }}" \
+          -e COMMIT_MESSAGE="${{ env.COMMIT_MESSAGE }}" \
+          -e FROM_BRANCH="${{ env.FROM_BRANCH }}" \
+          -e TO_BRANCH="${{ env.TO_BRANCH }}" \
+          my-docker-image
+
+
+
       
 # runs:
 #   using: 'docker'
