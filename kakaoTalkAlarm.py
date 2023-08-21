@@ -147,7 +147,7 @@ elif send_to_function == 'send_to_friends':
     # 추가된 부분    
     refresh_token = tokens['refresh_token']
     
-    print("refresh_token": refresh_token)
+    print("refresh_token"+ refresh_token)
 
     # 카카오톡 메시지 API
     url = "https://kauth.kakao.com/oauth/token"
