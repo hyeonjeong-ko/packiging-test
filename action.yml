@@ -21,55 +21,34 @@ inputs:
     description: "message template option (feed or text)"
     required: false
 
-  # # GitHub Environment Variables
-  # event_name:
-  #   description: "The name of the GitHub event that triggered the workflow."
-  #   required: true
+  # GitHub Environment Variables
+  event_name:
+    description: "The name of the GitHub event that triggered the workflow."
+    required: true
   
-  # merged_status:
-  #   description: "Indicates whether the pull request associated with the event was merged."
-  #   required: true
+  merged_status:
+    description: "Indicates whether the pull request associated with the event was merged."
+    required: true
   
-  # user_name:
-  #   description: "The name of the user who authored the last commit in the pull request."
-  #   required: true
+  user_name:
+    description: "The name of the user who authored the last commit in the pull request."
+    required: true
   
-  # commit_time:
-  #   description: "The timestamp of the last commit in the pull request, in ISO 8601 format."
-  #   required: true
+  commit_time:
+    description: "The timestamp of the last commit in the pull request, in ISO 8601 format."
+    required: true
   
-  # commit_message:
-  #   description: "The message of the last commit in the pull request."
-  #   required: true
+  commit_message:
+    description: "The message of the last commit in the pull request."
+    required: true
   
-  # from_branch:
-  #   description: "The name of the branch from which the pull request originates."
-  #   required: true
+  from_branch:
+    description: "The name of the branch from which the pull request originates."
+    required: true
   
-  # to_branch:
-  #   description: "The name of the branch to which the pull request is merged."
-  #   required: true
-
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env: # 깃허브 액션에서의 환경변수 설정
-    MY_INPUT_VAR: ${{ inputs.test-variable }}
-    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
-    REST_API_KEY: ${{ inputs.rest-api-key }}
-    REDIRECT_URI: ${{ inputs.redirect-uri }}
-    CODE_KEY: ${{ inputs.code-key }}
-    MSG_TEMPLATE: ${{ inputs.msg-template }}
-    
-    EVENT_NAME: ${{ github.event_name }}
-    MERGED_STATUS: ${{ github.event.pull_request.merged }}
-    USER_NAME: $(git log -1 --pretty=format:'%an')
-    COMMIT_TIME: $(git log -1 --pretty=format:'%ci')
-    COMMIT_MESSAGE: $(git log -1 --pretty=format:'%s')
-    FROM_BRANCH: $(git symbolic-ref --short HEAD)
-    TO_BRANCH: ${{ github.ref }}
-
-
+  to_branch:
+    description: "The name of the branch to which the pull request is merged."
+    required: true
 
 # runs:
 #   using: 'docker'
@@ -82,10 +61,31 @@ runs:
 #     CODE_KEY: ${{ inputs.code-key }}
 #     MSG_TEMPLATE: ${{ inputs.msg-template }}
     
-#     EVENT_NAME: ${{ inputs.event_name }}
-#     MERGED_STATUS: ${{ inputs.merged_status }}
-#     USER_NAME: ${{ inputs.user_name }}
-#     COMMIT_TIME: ${{ inputs.commit_time }}
-#     COMMIT_MESSAGE: ${{ inputs.commit_message }}
-#     FROM_BRANCH: ${{ inputs.from_branch }}
-#     TO_BRANCH: ${{ inputs.to_branch }}
+#     EVENT_NAME: ${{ github.event_name }}
+#     MERGED_STATUS: ${{ github.event.pull_request.merged }}
+#     USER_NAME: $(git log -1 --pretty=format:'%an')
+#     COMMIT_TIME: $(git log -1 --pretty=format:'%ci')
+#     COMMIT_MESSAGE: $(git log -1 --pretty=format:'%s')
+#     FROM_BRANCH: $(git symbolic-ref --short HEAD)
+#     TO_BRANCH: ${{ github.ref }}
+
+
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env: # 깃허브 액션에서의 환경변수 설정
+    MY_INPUT_VAR: ${{ inputs.test-variable }}
+    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+    REST_API_KEY: ${{ inputs.rest-api-key }}
+    REDIRECT_URI: ${{ inputs.redirect-uri }}
+    CODE_KEY: ${{ inputs.code-key }}
+    MSG_TEMPLATE: ${{ inputs.msg-template }}
+    
+    EVENT_NAME: ${{ inputs.event_name }}
+    MERGED_STATUS: ${{ inputs.merged_status }}
+    USER_NAME: ${{ inputs.user_name }}
+    COMMIT_TIME: ${{ inputs.commit_time }}
+    COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    FROM_BRANCH: ${{ inputs.from_branch }}
+    TO_BRANCH: ${{ inputs.to_branch }}
