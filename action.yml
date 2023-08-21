@@ -14,9 +14,12 @@ inputs:
   redirect-uri:
     description: "your redirect-uri"
     required: true
-  code-key:
-    description: "your kakaotalk oauth code key"
-    required: true
+  access-token:
+    description: "your kakaotalk access-token key"
+    required: false
+  refresh-token:
+    description: "your kakaotalk refresh-token key"
+    required: false
   msg-template:
     description: "message template option (feed or text)"
     required: false
@@ -50,6 +53,28 @@ inputs:
     description: "The name of the branch to which the pull request is merged."
     required: true
 
+
+runs:
+  using: 'docker'
+  image: 'Dockerfile'
+  env: # 깃허브 액션에서의 환경변수 설정
+    MY_INPUT_VAR: ${{ inputs.test-variable }}
+    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+    REST_API_KEY: ${{ inputs.rest-api-key }}
+    REDIRECT_URI: ${{ inputs.redirect-uri }}
+    ACCESS_TOKEN: ${{ inputs.access-token }}
+    REFRESH_TOKEN: ${{inputs.refresh-token}}
+    MSG_TEMPLATE: ${{ inputs.msg-template }}
+    
+    EVENT_NAME: ${{ inputs.event_name }}
+    MERGED_STATUS: ${{ inputs.merged_status }}
+    USER_NAME: ${{ inputs.user_name }}
+    COMMIT_TIME: ${{ inputs.commit_time }}
+    COMMIT_MESSAGE: ${{ inputs.commit_message }}
+    FROM_BRANCH: ${{ inputs.from_branch }}
+    TO_BRANCH: ${{ inputs.to_branch }}
+
+
 # runs:
 #   using: 'docker'
 #   image: 'Dockerfile'
@@ -68,24 +93,3 @@ inputs:
 #     COMMIT_MESSAGE: $(git log -1 --pretty=format:'%s')
 #     FROM_BRANCH: $(git symbolic-ref --short HEAD)
 #     TO_BRANCH: ${{ github.ref }}
-
-
-
-runs:
-  using: 'docker'
-  image: 'Dockerfile'
-  env: # 깃허브 액션에서의 환경변수 설정
-    MY_INPUT_VAR: ${{ inputs.test-variable }}
-    SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
-    REST_API_KEY: ${{ inputs.rest-api-key }}
-    REDIRECT_URI: ${{ inputs.redirect-uri }}
-    CODE_KEY: ${{ inputs.code-key }}
-    MSG_TEMPLATE: ${{ inputs.msg-template }}
-    
-    EVENT_NAME: ${{ inputs.event_name }}
-    MERGED_STATUS: ${{ inputs.merged_status }}
-    USER_NAME: ${{ inputs.user_name }}
-    COMMIT_TIME: ${{ inputs.commit_time }}
-    COMMIT_MESSAGE: ${{ inputs.commit_message }}
-    FROM_BRANCH: ${{ inputs.from_branch }}
-    TO_BRANCH: ${{ inputs.to_branch }}
