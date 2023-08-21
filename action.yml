@@ -53,12 +53,6 @@ inputs:
 runs:
   using: "composite"
   steps:
-  
-    - name: Set up Python 3.7
-      uses: actions/setup-python@v2
-      with:
-        python-version: 3.7
-
     - name: Set User Information
       if: github.event_name == 'push'
       id: user_info_push
@@ -95,19 +89,23 @@ runs:
         echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
       shell: bash
 
-    - name: Run the specified script
-      run: python kakaoTalkAlarm.py
-
-
-    # - id: random-number-generator
-    #   run: echo "random-number=$(echo $RANDOM)" >> $GITHUB_OUTPUT
-    #   shell: bash
-    # - run: echo "${{ github.action_path }}" >> $GITHUB_PATH
-    #   shell: bash
-    # - run: goodbye.sh
-    #   shell: bash
-
-    
+    - name: Run Docker container # 빼먹은 'steps' 섹션 추가
+      uses: docker://Dockerfile # 이미지 이름 지정
+      env: # 환경변수 설정
+        MY_INPUT_VAR: ${{ inputs.test-variable }}
+        SEND_TO_FUNCTION: ${{ inputs.send-to-function }}
+        REST_API_KEY: ${{ inputs.rest-api-key }}
+        REDIRECT_URI: ${{ inputs.redirect-uri }}
+        CODE_KEY: ${{ inputs.code-key }}
+        MSG_TEMPLATE: ${{ inputs.msg-template }}
+        EVENT_NAME: ${{ github.event_name }} # event_name 변수 수정
+        MERGED_STATUS: ${{ github.event.pull_request.merged }} # github.event 수정
+        USER_NAME: ${{ env.USER_NAME }} # 이미 위에서 설정한 환경변수 사용
+        COMMIT_TIME: ${{ env.COMMIT_TIME }} # 이미 위에서 설정한 환경변수 사용
+        COMMIT_MESSAGE: ${{ env.COMMIT_MESSAGE }} # 이미 위에서 설정한 환경변수 사용
+        FROM_BRANCH: ${{ env.FROM_BRANCH }} # 이미 위에서 설정한 환경변수 사용
+        TO_BRANCH: ${{ env.TO_BRANCH }} # 이미 위에서 설정한 환경변수 사용
+      
 # runs:
 #   using: 'docker'
 #   image: 'Dockerfile'
