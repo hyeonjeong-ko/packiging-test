@@ -86,15 +86,9 @@ runs:
         echo "INPUT_REDIRECT_URI=${{ inputs.redirect-uri }}" >> $GITHUB_ENV
         echo "INPUT_CODE_KEY=${{ inputs.code-key }}" >> $GITHUB_ENV
         echo "INPUT_MSG_TEMPLATE=${{ inputs.msg-template }}" >> $GITHUB_ENV
-      shell: bash
+        
+        docker build -t my-docker-image .
 
-    - name: Build Docker image
-      run: docker build -t my-docker-image .
-      working-directory: packiging-test
-      shell: bash
-    
-    - name: Run Docker container
-      run: |
         docker run \
           -e MY_INPUT_VAR="${{ inputs.test-variable }}" \
           -e SEND_TO_FUNCTION="${{ inputs.send-to-function }}" \
@@ -110,7 +104,6 @@ runs:
           -e FROM_BRANCH="${{ env.FROM_BRANCH }}" \
           -e TO_BRANCH="${{ env.TO_BRANCH }}" \
           my-docker-image
-      working-directory: packiging-test
       shell: bash
 
 
