@@ -89,21 +89,19 @@ if send_to_function == 'send_to_me':
 
     description=""
     # 조건문을 사용하여 데이터 준비
-    if event_name == 'Push':
+    if event_name == "Push":
         description = f"{to_branch}(으)로 push 완료\n'{commit_message}'"
-    elif event_name == 'Pull Request':
+    elif event_name == "Pull Request":
         description = f"{from_branch}→{to_branch}\n'{commit_message}'"
 
     
     # 사용자 템플릿 변수에 따라 텍스트, 피드 설정 - 개인 테스트용
-    #template_type = 'Feed'
-    #template_type = 'Text'
-
+    
     print("description" + description)
 
     print("메시지부분시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     
-    if msg_template == 'feed':
+    if msg_template == "feed":
         data = {
             "template_object" : json.dumps({ "object_type" : "feed",
                                              "content":{
@@ -118,7 +116,8 @@ if send_to_function == 'send_to_me':
                                             "button_title": "깃헙으로 이동하기"                            
             })
         }
-    elif msg_template == 'text':
+    elif msg_template == "text":
+        print("메시지 템플릿 텍스트 분기 진입")
         data = {
             "template_object" : json.dumps({ "object_type" : "text",
                                              "text" : f"{user_name}님이 {event_name}을 했어요!\n{description}",
