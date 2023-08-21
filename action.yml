@@ -119,12 +119,12 @@ runs:
     CODE_KEY: ${{ inputs.code-key }}
     MSG_TEMPLATE: ${{ inputs.msg-template }}
     
-    EVENT_NAME= ${{ env.EVENT_NAME }}
-    MERGED_STATUS= ${{ env.MERGED_STATUS }}
-    USER_NAME= ${{ env.USER_NAME }}
-    COMMIT_TIME=${{ env.COMMIT_TIME }}
-    COMMIT_MESSAGE=${{ env.COMMIT_MESSAGE }}
-    FROM_BRANCH= ${{ env.FROM_BRANCH }}
-    TO_BRANCH= ${{ env.TO_BRANCH }}
-    EXISTING_CONTENT= ${{ steps.read_existing.outputs.existing_content }}
-    NEW_CONTENT= ${{ steps.new_content.outputs.new_content }}
+    # EVENT_NAME= ${{ env.EVENT_NAME }}
+    # MERGED_STATUS= ${{ env.MERGED_STATUS }}
+    # USER_NAME= ${{ env.USER_NAME }}
+    # COMMIT_TIME=${{ env.COMMIT_TIME }}
+    # COMMIT_MESSAGE=${{ env.COMMIT_MESSAGE }}
+    # FROM_BRANCH= ${{ env.FROM_BRANCH }}
+    # TO_BRANCH= ${{ env.TO_BRANCH }}
+    # EXISTING_CONTENT= ${{ steps.read_existing.outputs.existing_content }}
+    # NEW_CONTENT= ${{ steps.new_content.outputs.new_content }}
