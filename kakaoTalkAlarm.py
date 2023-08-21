@@ -1,7 +1,7 @@
 import requests
 import json
 import os
-#from datetime import datetime, timedelta
+from datetime import datetime, timedelta
 
 event_name = os.environ.get('EVENT_NAME')
 merged_status = os.environ.get('MERGED_STATUS')
