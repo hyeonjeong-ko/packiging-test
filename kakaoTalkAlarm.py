@@ -86,16 +86,20 @@ if send_to_function == 'send_to_me':
     #print(f"User Name: {user_name}")
     #print(f"Origin Branch: {origin_branch}")
     #print(f"Branch Name: {branch_name}")
-    
+
+    description=""
     # 조건문을 사용하여 데이터 준비
     if event_name == 'Push':
         description = f"{to_branch}(으)로 push 완료\n'{commit_message}'"
     elif event_name == 'Pull Request':
         description = f"{from_branch}→{to_branch}\n'{commit_message}'"
+
     
     # 사용자 템플릿 변수에 따라 텍스트, 피드 설정 - 개인 테스트용
     #template_type = 'Feed'
     #template_type = 'Text'
+
+    print("description" + description)
 
     print("메시지부분시작!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!")
     
