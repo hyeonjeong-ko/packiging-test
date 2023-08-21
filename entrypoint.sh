@@ -14,6 +14,8 @@ ls
 python -m pip install --upgrade pip
 pip install requests
 
+echo "===============================================명령어 진입==============================================="
+
 # 이벤트 이름에 따라 환경 변수 설정
 if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
   echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
