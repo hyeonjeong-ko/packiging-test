@@ -16,15 +16,6 @@ pip install requests
 
 echo "===============================================명령어 진입==============================================="
 
-# 이벤트 이름에 따라 환경 변수 설정
-if [ "$GITHUB_EVENT_NAME" = "pull_request" ]; then
-  echo "EVENT_NAME=Pull Request" >> $GITHUB_ENV
-  echo "MERGED_STATUS=${{ github.event.pull_request.merged }}" >> $GITHUB_ENV
-elif [ "$GITHUB_EVENT_NAME" = "push" ]; then
-  echo "EVENT_NAME=Push" >> $GITHUB_ENV
-elif [ "$GITHUB_EVENT_NAME" = "workflow_run" ]; then
-  echo "EVENT_NAME=Workflow Run" >> $GITHUB_ENV
-fi
 
 # # 이벤트에 따라 유저 정보 설정
 # if [ "$GITHUB_EVENT_NAME" = "push" ]; then
