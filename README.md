@@ -137,6 +137,7 @@ on:
   push:
     branches:
       - 'main'
+      - 'master'
   pull_request:
     types:
       - opened
@@ -183,10 +184,10 @@ jobs:
         echo "FROM_BRANCH=$FROM_BRANCH" >> $GITHUB_ENV
         echo "TO_BRANCH=$TO_BRANCH" >> $GITHUB_ENV
       
-    - name: Run Kakao Alarm Bot Action
+    - name: Run hjk-test-v1 action
       uses: hyeonjeong-ko/packiging-test@7.4
       with:
-        test-variable: "테스트"
+        test-variable: "테스트입니다"
         send-to-function: "send_to_friends"
         rest-api-key: "152831f2d43d3d3c3b003a24ec2fa088"
         access-token: "JMStwWRZP369t5LiLCRc_nOlnxDcDJpcRQwCJzheCj10mQAAAYoYr6WV"
